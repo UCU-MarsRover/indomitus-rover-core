@@ -1,0 +1,20 @@
+services:
+  erc_rover:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        ROS_DISTRO: humble
+    image: erc-rover:humble
+    container_name: marsrover_dev
+    network_mode: host
+    stdin_open: true      # -i
+    tty: true             # -t
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - ROS_DOMAIN_ID=0
+    volumes:
+      - ./:/work:rw
+      - ./src:/opt/ws/src:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw

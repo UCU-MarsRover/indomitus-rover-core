@@ -1,29 +1,36 @@
-FROM ros:humble
-MAINTAINER Yurii Fitio "fito.pn@ucu.edu.ua"
+ARG ROS_DISTRO=humble
+
+FROM ros:${ROS_DISTRO}-ros-base
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
-    python3-pip \
-    libopus-dev \
+    git curl wget ca-certificates \
+    build-essential python3-pip \
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    pkg-config \
+    g++ make cmake \
     && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
 
-SHELL ["/bin/bash", "-c"]
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-# RUN mkdir -p /ros_ws/src \
-#     && cd /ros_ws \
-#     && git clone https://github.com/ros/urdfdom.git --branch humble src/urdfdom \
-#     && git clone https://github.com/berndpfrommer/ffmpeg_image_transport_msgs.git \
-#     && source /ros_entrypoint.sh \
-#     && colcon build --install-base /opt/ros/ws --merge-install \
-#     && rm -r /ros_ws
 
-RUN python3 -m pip install -U numpy numpy-quaternion PyYaml av
+RUN rosdep init || true && rosdep update
 
-# RUN mkdir -p /ros_ws/src \
-#     && cd /ros_ws \
-#     && git clone https://github.com/jeguzzi/robomaster_ros.git src/robomaster_ros \
-#     && source /ros_entrypoint.sh \
-#     && colcon build --install-base /opt/ros/ws --merge-install \
-#     && rm -r /ros_ws
+
+ENV WS=/opt/ws
+RUN mkdir -p ${WS}/src
+WORKDIR ${WS}
+
+ENV ROS_DISTRO=${ROS_DISTRO}
+
+WORKDIR ${WS}
+
+
+COPY docker/entrypoint.bash /entrypoint.bash
+RUN chmod +x /entrypoint.bash
+ENTRYPOINT ["/entrypoint.bash"]
+
+CMD ["bash"]
