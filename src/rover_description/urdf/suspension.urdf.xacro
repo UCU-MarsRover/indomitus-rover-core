@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 
-<robot name="rover_s1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="rover_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
 
   <xacro:macro name="suspension" params="tf_prefix=''">
 
-    <link name="${tf_prefix}base_link">
+    <link name="${tf_prefix}base_link"/>
+
+    <link name="${tf_prefix}suspension_base_link">
       <inertial>
         <origin xyz="0 0 0.05" rpy="0 0 0"/>
         <mass value="10.0"/>
@@ -13,28 +15,17 @@
       <visual>
         <origin xyz="0 0 0.05"/>
         <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/central-axii.stl"/>
+          <mesh filename="package://rover_description/meshes/suspension/central-axii.stl" scale="0.01 0.01 0.01"/>
         </geometry>
       </visual>
-      <collision>
-        <origin xyz="0 0 0.05"/>
-        <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/central-axii.stl"/>
-        </geometry>
-      </collision>
     </link>
 
+    <joint name="${tf_prefix}suspension_base_joint" type="fixed">
+      <origin xyz="0 0 0.03465" rpy="0 0 0"/>
+      <parent link="${tf_prefix}base_link"/>
+      <child link="${tf_prefix}suspension_base_link"/>
+    </joint>
+
   </xacro:macro>
-
-  <!-- Instantiate the suspension macro -->
-  <xacro:suspension tf_prefix=""/>
-
-  <joint name="fixed" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
-  <link name="world"/>
 
 </robot>

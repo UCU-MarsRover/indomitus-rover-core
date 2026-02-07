@@ -1,8 +1,17 @@
 <?xml version="1.0"?>
-<robot name="rover_s1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="rover_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+
+  <xacro:arg name="name" default=""/>
+  <xacro:property name="_name" value="$(arg name)"/>
+  <xacro:if value="${_name != ''}">
+    <xacro:property name="tf_prefix" value="${_name}/"/>
+  </xacro:if>
+  <xacro:if value="${_name == ''}">
+    <xacro:property name="tf_prefix" value=""/>
+  </xacro:if>
 
   <xacro:include filename="$(find rover_description)/urdf/suspension.urdf.xacro"/>
 
-  <xacro:suspension tf_prefix=""/>
+  <xacro:suspension tf_prefix="${tf_prefix}"/>
 
 </robot>

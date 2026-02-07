@@ -18,9 +18,9 @@ args_descriptions = {
 
 def urdf(name: str = '') -> str:
     urdf_xacro = os.path.join(get_package_share_directory('rover_description'),
-                              'urdf', 'suspension.urdf.xacro')
+                              'urdf', 'rover_s1.urdf.xacro')
     
-    xacro_args = [f'tf_prefix:={name}']
+    xacro_args = [f'name:={name}']
     
     opts, input_file_name = xacro.process_args([urdf_xacro] + xacro_args)
     try:
@@ -43,12 +43,6 @@ def launch_nodes(context: LaunchContext,
                           if k not in ('use_rviz', 'use_joint_state_publisher_gui')})
     
     nodes = []
-    
-    # Debug: Save URDF to file
-    import tempfile
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.urdf', delete=False) as f:
-        f.write(urdf_string)
-        print(f"URDF saved to: {f.name}")
     
     # Robot State Publisher
     robot_state_publisher_node = Node(

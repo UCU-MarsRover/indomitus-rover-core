@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <launch>
 
   <arg name="joint_state_gui" default="false" description="If true, select the GUI version of :ros:exec:`join_state_publisher/join_state_publisher`"/>
