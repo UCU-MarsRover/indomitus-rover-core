@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="rover_s1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find rover_description)/urdf/suspension.urdf.xacro"/>
+
+  <xacro:suspension tf_prefix=""/>
+
+</robot>
