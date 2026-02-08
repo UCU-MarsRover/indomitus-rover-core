@@ -7,6 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobotModel1
+        - /RobotModel1/Description Topic1
       Splitter Ratio: 0.5
     Tree Height: 460
   - Class: rviz_common/Selection
@@ -66,10 +67,60 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        back_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        back_left_wheel_mount_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        back_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        back_right_wheel_mount_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        front_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_left_wheel_mount_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_wheel_mount_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_rocker_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_rocker_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         suspension_base_link:
           Alpha: 1
           Show Axes: false
@@ -83,6 +134,59 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        back_left_wheel_link:
+          Value: true
+        back_left_wheel_mount_link:
+          Value: true
+        back_right_wheel_link:
+          Value: true
+        back_right_wheel_mount_link:
+          Value: true
+        base_link:
+          Value: true
+        front_left_wheel_link:
+          Value: true
+        front_left_wheel_mount_link:
+          Value: true
+        front_right_wheel_link:
+          Value: true
+        front_right_wheel_mount_link:
+          Value: true
+        left_rocker_link:
+          Value: true
+        right_rocker_link:
+          Value: true
+        suspension_base_link:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        base_link:
+          suspension_base_link:
+            left_rocker_link:
+              back_left_wheel_mount_link:
+                back_left_wheel_link:
+                  {}
+              front_left_wheel_mount_link:
+                front_left_wheel_link:
+                  {}
+            right_rocker_link:
+              back_right_wheel_mount_link:
+                back_right_wheel_link:
+                  {}
+              front_right_wheel_mount_link:
+                front_right_wheel_link:
+                  {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -129,7 +233,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 31.906272888183594
+      Distance: 3.310059070587158
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -144,10 +248,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.44039809703826904
+      Pitch: 0.5603979825973511
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.2154009342193604
+      Yaw: 5.818580627441406
     Saved: ~
 Window Geometry:
   Displays:
