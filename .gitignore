@@ -57,3 +57,4 @@ build/
 install/
 log/
 
+docker-compose.yml

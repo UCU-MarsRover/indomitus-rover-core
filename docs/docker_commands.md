@@ -1,7 +1,16 @@
 
 ## Docker
 
-#### Build the Docker image
+### !!!ATTENTION!!!⚠️⚠️
+Each user should set up `docker-compose` individually, because on different platforms
+there may be different drivers and dependencies.
+
+Use `docker-compose.example.yml` in the `docker` directory as a starting point.  
+Copy it to the root directory and rename it to `docker-compose.yml`.  
+
+In most cases this works well, but be aware that issues may still occur depending on your system.
+
+### Build the Docker image
 To **Build and image** run this command in a root directory
 ```bash
 docker-compose build
@@ -12,7 +21,7 @@ To force rebuild:
 docker-compose build --no-cache
 ```
 
-#### Create and run a container
+### Create and run a container
 To create a container:
 ```bash
 docker-compose up -d
