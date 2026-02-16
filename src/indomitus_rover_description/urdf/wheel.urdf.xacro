@@ -13,7 +13,7 @@
       <visual>
         <origin xyz="0 ${-0.06 * side} -0.269" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/wheel_mount.stl" scale="0.001 ${0.001 * side} 0.001"/>
+          <mesh filename="package://indomitus_rover_description/meshes/suspension/wheel_mount.stl" scale="0.001 ${0.001 * side} 0.001"/>
         </geometry>
         <material name="steel"/>
       </visual>
@@ -31,7 +31,7 @@
       <visual>
         <origin xyz="0 ${-0.06 * side} 0" rpy="${-pi/2} 0 0"/> <!-- ${0.12 * side} -->
         <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/wheel.stl" scale="0.001 0.001 ${side * 0.001}"/>
+          <mesh filename="package://indomitus_rover_description/meshes/suspension/wheel.stl" scale="0.001 0.001 ${side * 0.001}"/>
         </geometry>
         <material name="wheel_plastic"/>
       </visual>

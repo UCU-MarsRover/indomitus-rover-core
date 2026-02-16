@@ -22,13 +22,10 @@ If it already exists -> it just starts it.
 
 To enter container:
 ```bash
-docker-compose exec erc_rover bash
+docker-compose exec indomitus_rover_dev bash
 ```
 You can enter one container from multiple terminals
 
-```bash
-docker-compose exec erc_rover bash
-```
 
 To stop a container(it won't be deleted, just stopped):
 ```bash

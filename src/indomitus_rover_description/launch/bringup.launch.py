@@ -16,8 +16,8 @@ args_descriptions = {
 
 def urdf(name: str = '') -> str:
     # Тільки модель S1
-    urdf_xacro = os.path.join(get_package_share_directory('rover_description'),
-                              'urdf', 'rover_s1.urdf.xacro')
+    urdf_xacro = os.path.join(get_package_share_directory('indomitus_rover_description'),
+                              'urdf', 'indomitus_rover_s1.urdf.xacro')
     
     # Формуємо аргументи для xacro
     xacro_args = [f'name:={name}']

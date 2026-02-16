@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="rover_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+<robot name="indomitus_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
 
   <xacro:arg name="name" default=""/>
   <xacro:property name="_name" value="$(arg name)"/>
@@ -10,9 +10,9 @@
     <xacro:property name="tf_prefix" value=""/>
   </xacro:if>
 
-  <xacro:include filename="$(find rover_description)/urdf/suspension.urdf.xacro"/>
-  <xacro:include filename="$(find rover_description)/urdf/rocker.urdf.xacro"/>
-  <xacro:include filename="$(find rover_description)/urdf/wheel.urdf.xacro"/>
+  <xacro:include filename="$(find indomitus_rover_description)/urdf/suspension.urdf.xacro"/>
+  <xacro:include filename="$(find indomitus_rover_description)/urdf/rocker.urdf.xacro"/>
+  <xacro:include filename="$(find indomitus_rover_description)/urdf/wheel.urdf.xacro"/>
 
   <xacro:suspension xyz="0 0 0" tf_prefix="${tf_prefix}"/>
   <xacro:rocker name="left"  xyz="0 0.305 0"  side="1"  base_axii="suspension_base_link" tf_prefix="${tf_prefix}"/>

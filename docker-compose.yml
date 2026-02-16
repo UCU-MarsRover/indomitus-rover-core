@@ -1,12 +1,12 @@
 services:
-  erc_rover:
+  indomitus_rover_dev:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
         ROS_DISTRO: humble
-    image: erc-rover:humble
-    container_name: marsrover_dev
+    image: indomitus-rover:humble
+    container_name: indomitus_rover_dev
     network_mode: host
     stdin_open: true      # -i
     tty: true             # -t
