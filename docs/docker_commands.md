@@ -10,11 +10,22 @@ Copy it to the root directory and rename it to `docker-compose.yml`.
 
 In most cases this works well, but be aware that issues may still occur depending on your system.
 
+### Dependencies
+```bash
+sudo apt install docker-compose-v2
+```
+
+```bash
+sudo usermode -aG docker $USER
+```
+
 ### Build the Docker image
 To **Build and image** run this command in a root directory
 ```bash
 docker-compose build
 ```
+If this doesn't work try ` docker compose` without `-`
+And try `sudo` also
 
 To force rebuild:
 ```bash
@@ -35,6 +46,10 @@ docker-compose exec indomitus_rover_dev bash
 ```
 You can enter one container from multiple terminals
 
+Before entering it's usefull to allow docker use your screen:
+```bash
+xhost +local:docker
+```
 
 To stop a container(it won't be deleted, just stopped):
 ```bash
