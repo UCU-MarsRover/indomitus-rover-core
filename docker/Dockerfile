@@ -8,6 +8,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential python3-pip \
     python3-colcon-common-extensions \
     python3-rosdep \
+    iputils-ping pkg-config \
+    ros-${ROS_DISTRO}-ros2launch \
+    ros-${ROS_DISTRO}-xacro \
+    ros-${ROS_DISTRO}-robot-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
+    ros-${ROS_DISTRO}-rviz2 \
+    ros-${ROS_DISTRO}-rosbag2 \
+    libgl1 libglib2.0-0 \
     pkg-config \
     g++ make cmake \
     && rm -rf /var/lib/apt/lists/*
