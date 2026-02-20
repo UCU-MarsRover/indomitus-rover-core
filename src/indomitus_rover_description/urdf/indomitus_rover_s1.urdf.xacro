@@ -14,7 +14,7 @@
   <xacro:include filename="$(find indomitus_rover_description)/urdf/rocker.urdf.xacro"/>
   <xacro:include filename="$(find indomitus_rover_description)/urdf/wheel.urdf.xacro"/>
 
-  <xacro:suspension xyz="0 0 0" tf_prefix="${tf_prefix}"/>
+  <xacro:suspension xyz="0 0 0.4" tf_prefix="${tf_prefix}"/>
   <xacro:rocker name="left"  xyz="0 0.305 0"  side="1"  base_axii="suspension_base_link" tf_prefix="${tf_prefix}"/>
   <xacro:rocker name="right" xyz="0 -0.305 0" side="-1" base_axii="suspension_base_link" tf_prefix="${tf_prefix}"/>
 

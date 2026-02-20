@@ -28,6 +28,13 @@
     </joint>
 
     <link name="${tf_prefix}${name}_wheel_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.00563" ixy="0" ixz="0"
+                iyy="0.00563" iyz="0"
+                izz="0.01125"/>
+      </inertial>
       <visual>
         <origin xyz="0 ${-0.06 * side} 0" rpy="${-pi/2} 0 0"/> <!-- ${0.12 * side} -->
         <geometry>
