@@ -40,11 +40,9 @@ All team branches **must** follow this pattern:
 - `drone` - Drone team
 - `suspension` - Suspension team
 
+---
 
-
-
-
-# PULL REQUEST TEMPLATE
+## PULL REQUEST TEMPLATE
 
 ```text
 ## Description
