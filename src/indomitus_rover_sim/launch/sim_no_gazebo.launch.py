@@ -11,8 +11,8 @@ from launch.actions import TimerAction
 
 
 def generate_launch_description() -> LaunchDescription:
-    pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_description'),
-                                 'urdf', 'indomitus_rover_s1.urdf.xacro')
+    pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_sim'),
+                                 'urdf', 'indomitus_rover_gazebo.urdf.xacro')
 
     robotDescription = xacro.process_file(pathModelFile).toxml()
 

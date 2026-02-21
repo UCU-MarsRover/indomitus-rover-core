@@ -30,7 +30,7 @@ endif()
 
 
 install(
-  DIRECTORY launch worlds parameters
+  DIRECTORY launch worlds parameters urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
