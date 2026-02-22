@@ -40,12 +40,11 @@ All team branches **must** follow this pattern:
 - `drone` - Drone team
 - `suspension` - Suspension team
 
+---
 
+## PULL REQUEST TEMPLATE
 
-
-
-# PULL REQUEST TEMPLATE
-
+```text
 ## Description
 <!-- Provide a clear and concise description of what this PR does -->
 
@@ -84,3 +83,4 @@ All team branches **must** follow this pattern:
 
 ## Additional Notes
 <!-- Any additional information that reviewers should know -->
+```
