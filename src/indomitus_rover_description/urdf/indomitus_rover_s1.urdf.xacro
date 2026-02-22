@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="indomitus_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+<robot name="indomitus_s1" xmlns:xacro="https://www.ros.org/wiki/xacro">
 
   <xacro:arg name="name" default=""/>
   <xacro:property name="_name" value="$(arg name)"/>

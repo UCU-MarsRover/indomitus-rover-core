@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro">
 
   <xacro:macro name="wheel" params="name x y z side base_rocker tf_prefix=''">
 

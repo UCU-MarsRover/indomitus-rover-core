@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-joint-state-publisher-gui \
     ros-${ROS_DISTRO}-rviz2 \
     ros-${ROS_DISTRO}-rosbag2 \
+    ros-${ROS_DISTRO}-ros-gz ros-${ROS_DISTRO}-ros-gz-sim \
+    ros-${ROS_DISTRO}-ros-gz-bridge ros-${ROS_DISTRO}-gazebo-ros-pkgs \
     libgl1 libglib2.0-0 \
     pkg-config \
     g++ make cmake \

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="rover_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+<robot name="rover_s1" xmlns:xacro="https://www.ros.org/wiki/xacro">
 
   <xacro:macro name="suspension" params="xyz tf_prefix=''">
 

@@ -42,7 +42,6 @@ use_joint_state_publisher_gui	bool	Використовувати GUI для к�
 | name                          | string | Префікс TF для робота2                      | ''               |
 | use_rviz                      | bool   | Чи запускати RViz2                          | true             |
 | use_joint_state_publisher_gui | bool   | Використовувати GUI для керування суглобами | true             |
-|-------------------------------|--------|---------------------------------------------|------------------|
 
 
 Приклади використання
@@ -97,6 +96,9 @@ sudo apt install gz-harmonic
 
 Distrobox:
 ```zsh
+sudo apt install ros-humble-teleop-twist-keyboard
+
+
 sudo rosdep init
 rosdep update
 
@@ -126,28 +128,33 @@ source install/setup.bash
 Перед тим як все починати на хості:
 ```zsh
 export GZ_PARTITION=rover
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/UCU/indomitus-rover-core/install/indomitus_rover_description/share
-export ROS_DOMAIN_ID=0
-export GZ_IP=127.0.0.1
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/UCU/ERC/indomitus-rover-core/install/indomitus_rover_description/share
 ```
 
 
 В distrobox (мій випадок):
 ```zsh
 export GZ_PARTITION=rover
+source /opt/ros/humble/setup.zsh
+```
+
+
+Additonal:
+```zsh
 export ROS_DOMAIN_ID=0
 export GZ_IP=127.0.0.1
-source /opt/ros/humble/setup.zsh
 ```
 
 
 ## Запуск gazebo: 
 Я запускав gazebo harmonic на host OS, а ros2 і його топіки підіймав у distrobox
 
+Хост (спершу ця команда):
 ```zsh
 ❯ gz sim -r empty.sdf
 ```
 
+distrobox:
 ```zsh
 ❯ ros2 launch indomitus_rover_sim sim_no_gazebo.launch.py
 ```
