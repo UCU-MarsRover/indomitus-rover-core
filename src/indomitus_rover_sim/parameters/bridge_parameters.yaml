@@ -9,9 +9,3 @@
   ros_type_name: sensor_msgs/msg/JointState
   gz_type_name: gz.msgs.Model
   direction: GZ_TO_ROS
-
-- ros_topic_name: /cmd_vel
-  gz_topic_name: /model/indomitus_rover/cmd_vel
-  ros_type_name: geometry_msgs/msg/Twist
-  gz_type_name: gz.msgs.Twist
-  direction: ROS_TO_GZ

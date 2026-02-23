@@ -15,6 +15,7 @@ find_package(xacro REQUIRED)
 find_package(ros_gz_sim REQUIRED)
 find_package(ros_gz_bridge REQUIRED)
 
+include_directories(include)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,5 +34,9 @@ install(
   DIRECTORY launch worlds parameters urdf
   DESTINATION share/${PROJECT_NAME}
 )
+
+add_executable(icr_controller_node src/icr_controller_node.cpp)
+ament_target_dependencies(icr_controller_node rclcpp geometry_msgs std_msgs)
+install(TARGETS icr_controller_node DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

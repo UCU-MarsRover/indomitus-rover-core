@@ -1,0 +1,33 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    steering_controller:
+      type: position_controllers/JointGroupPositionController
+
+    drive_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+steering_controller:
+  ros__parameters:
+    joints:
+      - fl_wheel_mount_joint
+      - fr_wheel_mount_joint
+      - bl_wheel_mount_joint
+      - br_wheel_mount_joint
+
+drive_controller:
+  ros__parameters:
+    joints:
+      - fl_wheel_joint
+      - fr_wheel_joint
+      - bl_wheel_joint
+      - br_wheel_joint
+
+
+GazeboSystem:
+  ros__parameters:
+    position_proportional_gain: 5.0

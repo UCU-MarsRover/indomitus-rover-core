@@ -10,8 +10,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import TimerAction
 
 def generate_launch_description() -> LaunchDescription:
-    pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_description'),
-                                 'urdf', 'indomitus_rover_s1.urdf.xacro')
+    pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_sim'),
+                                 'urdf', 'indomitus_rover_gazebo.urdf.xacro')
 
     robotDescription = xacro.process_file(pathModelFile).toxml()
 
@@ -71,12 +71,55 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
+    # публікує стани всіх joints в /joint_states
+    joint_state_broadcaster_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['joint_state_broadcaster'],
+        output='screen',
+    )
+
+    # керує кутом повороту wheel_mount joints (position)
+    steering_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['steering_controller'],
+        output='screen',
+    )
+
+    # керує швидкістю обертання wheel joints (velocity)
+    drive_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_controller'],
+        output='screen',
+    )
+
+
+    icr_controller_node = Node(
+        package='indomitus_rover_sim',
+        executable='icr_controller_node',
+        output='screen',
+    )
+
+
     launchDescriptionObject = LaunchDescription()
 
     launchDescriptionObject.add_action(gazeboLaunch) 
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
-    launchDescriptionObject.add_action(spawnModelNodeGazebo)
+    # launchDescriptionObject.add_action(spawnModelNodeGazebo)
+    launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
+
+    launchDescriptionObject.add_action(
+        TimerAction(period=3.0, actions=[
+            joint_state_broadcaster_spawner,
+            steering_controller_spawner,
+            drive_controller_spawner,
+        ])
+    )
+
+    launchDescriptionObject.add_action(TimerAction(period=4.0, actions=[icr_controller_node]))
 
     return launchDescriptionObject
 

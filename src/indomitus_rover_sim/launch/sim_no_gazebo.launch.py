@@ -65,11 +65,49 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
+
+    # НОВЕ: spawner для joint_state_broadcaster
+    # публікує стани всіх joints в /joint_states
+    joint_state_broadcaster_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['joint_state_broadcaster'],
+        output='screen',
+    )
+
+    # НОВЕ: spawner для steering контролера
+    # керує кутом повороту wheel_mount joints (position)
+    steering_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['steering_controller'],
+        output='screen',
+    )
+
+    # НОВЕ: spawner для drive контролера
+    # керує швидкістю обертання wheel joints (velocity)
+    drive_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_controller'],
+        output='screen',
+    )
+
     launchDescriptionObject = LaunchDescription()
 
     # launchDescriptionObject.add_action(spawnModelNodeGazebo)
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
     launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
+
+    # НОВЕ: запускаємо контролери через 3 секунди
+    # після того як Gazebo встигає ініціалізувати controller_manager
+    launchDescriptionObject.add_action(
+        TimerAction(period=3.0, actions=[
+            joint_state_broadcaster_spawner,
+            steering_controller_spawner,
+            drive_controller_spawner,
+        ])
+    )
 
     return launchDescriptionObject
