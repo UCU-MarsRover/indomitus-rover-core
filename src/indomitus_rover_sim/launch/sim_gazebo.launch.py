@@ -7,6 +7,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import TimerAction
 
 def generate_launch_description() -> LaunchDescription:
     pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_description'),
@@ -18,21 +19,18 @@ def generate_launch_description() -> LaunchDescription:
     gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('ros_gz_sim'),
                                                                         'launch', 'gz_sim.launch.py'))
 
+    world_file = os.path.join(
+        get_package_share_directory('indomitus_rover_sim'),
+        'worlds',
+        'rover_world.sdf'
+    )
 
-    gazeboLaunch = IncludeLaunchDescription(gazebo_rosPackageLaunch,
-                                            launch_arguments={
-                                                'gz_args': '-r -v -v4 empty.sdf',
-                                                'on_exit_shutdown': 'True'
-                                            }.items())
-
-    spawnModelNodeGazebo = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'indomitus_rover',
-            '-topic', 'robot_description',
-        ],
-        output='screen',
+    gazeboLaunch = IncludeLaunchDescription(
+        gazebo_rosPackageLaunch,
+        launch_arguments={
+            'gz_args': f'-r -v -v4 {world_file}',
+            'on_exit_shutdown': 'True'
+        }.items()
     )
 
     nodeRobotStatePublisher = Node(
@@ -60,12 +58,25 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
+    spawnModelNodeGazebo = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'indomitus_rover',
+            '-topic', 'robot_description',
+            '-x', '0.0',
+            '-y', '0.0',
+            '-z', '0.5',
+        ],
+        output='screen',
+    )
+
     launchDescriptionObject = LaunchDescription()
 
-    launchDescriptionObject.add_action(gazeboLaunch)
-
-    launchDescriptionObject.add_action(spawnModelNodeGazebo)
+    launchDescriptionObject.add_action(gazeboLaunch) 
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
+    launchDescriptionObject.add_action(spawnModelNodeGazebo)
 
     return launchDescriptionObject
+
