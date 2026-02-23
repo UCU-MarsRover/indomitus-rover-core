@@ -79,82 +79,68 @@ ros2 launch indomitus_rover_description robot_state_publisher.launch.py
 ```
 
 
+# Simulation Setup
 
+DESCRIPTION FOR MY OS CONFIGURATION. DIDN'T test gazebo nativly on ubuntu 22
+## Architecture
+Gazebo runs on the **host OS** (Ubuntu 24), ROS2 runs inside **distrobox (Ubuntu 22)**.
+Both communicate via gz-transport over shared network namespace.
 
+## Installation
 
-
-
-
-# Gazebo
-
-## Dependencies
-
-Host:
-```zsh
+### Host
+```bash
 sudo apt install gz-harmonic
 ```
 
-Distrobox:
-```zsh
-sudo apt install ros-humble-teleop-twist-keyboard
+### Distrobox (Ubuntu 22 / ROS2 Humble)
+```bash
+# ROS2 tools
+sudo apt install -y \
+  ros-humble-xacro \
+  ros-humble-robot-state-publisher \
+  ros-humble-joint-state-publisher \
+  ros-humble-teleop-twist-keyboard
 
+# Gazebo Harmonic
+sudo curl https://packages.osrfoundation.org/gazebo.gpg \
+  --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
 
-sudo rosdep init
-rosdep update
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] \
+  http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
+  | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
 
-sudo apt-get install -y curl
-sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
 sudo apt-get update
-sudo apt-get install -y gz-harmonic
+sudo apt-get install -y gz-harmonic ros-humble-ros-gzharmonic
 
-sudo apt-get install -y ros-humble-ros-gzharmonic
-
-sudo apt install -y ros-humble-xacro ros-humble-robot-state-publisher ros-humble-joint-state-publisher
-
-sudo rosdep init      # skip if already done
+# Project dependencies
 rosdep update
-rosdep install -i --from-path src --rosdistro humble -y --skip-keys "ros_gzharmonic_bridge"
+rosdep install -i --from-path src --rosdistro humble -y
+```
 
-
-
+## Build
+```bash
 source /opt/ros/humble/setup.bash
 colcon build --symlink-install
 source install/setup.bash
 ```
 
-## Preparation
+## Running
 
-Перед тим як все починати на хості:
-```zsh
+### 1. Host — set env and launch Gazebo
+```bash
 export GZ_PARTITION=rover
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/UCU/ERC/indomitus-rover-core/install/indomitus_rover_description/share
+gz sim -r src/indomitus_rover_sim/worlds/rover_world.sdf
 ```
 
-
-В distrobox (мій випадок):
-```zsh
+### 2. Distrobox — set env and launch ROS2
+```bash
 export GZ_PARTITION=rover
-source /opt/ros/humble/setup.zsh
-```
-
-
-Additonal:
-```zsh
-export ROS_DOMAIN_ID=0
 export GZ_IP=127.0.0.1
+source /opt/ros/humble/setup.zsh
+source install/setup.bash
+ros2 launch indomitus_rover_sim sim_no_gazebo.launch.py
 ```
 
-
-## Запуск gazebo: 
-Я запускав gazebo harmonic на host OS, а ros2 і його топіки підіймав у distrobox
-
-Хост (спершу ця команда):
-```zsh
-❯ gz sim -r empty.sdf
-```
-
-distrobox:
-```zsh
-❯ ros2 launch indomitus_rover_sim sim_no_gazebo.launch.py
-```
+> ⚠️ `GZ_PARTITION` must be identical on host and distrobox.

@@ -1,20 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- DiffDrive — крутить колеса -->
-  <gazebo>
-    <plugin filename="gz-sim-diff-drive-system"
-            name="gz::sim::systems::DiffDrive">
-      <left_joint>front_left_wheel_joint</left_joint>
-      <left_joint>back_left_wheel_joint</left_joint>
-      <right_joint>front_right_wheel_joint</right_joint>
-      <right_joint>back_right_wheel_joint</right_joint>
-      <wheel_separation>0.61</wheel_separation>
-      <wheel_radius>0.15</wheel_radius>
-      <topic>/model/indomitus_rover/cmd_vel</topic>
-    </plugin>
-  </gazebo>
-
   <!-- JointStatePublisher — щоб Gazebo публікувала стани joints -->
   <gazebo>
     <plugin filename="gz-sim-joint-state-publisher-system"

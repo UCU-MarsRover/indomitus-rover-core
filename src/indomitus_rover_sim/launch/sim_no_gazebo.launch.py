@@ -70,6 +70,6 @@ def generate_launch_description() -> LaunchDescription:
     # launchDescriptionObject.add_action(spawnModelNodeGazebo)
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
-    launchDescriptionObject.add_action(TimerAction(period=3.0, actions=[spawnModelNodeGazebo]))
+    launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
 
     return launchDescriptionObject
