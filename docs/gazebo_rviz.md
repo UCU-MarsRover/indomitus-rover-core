@@ -144,3 +144,46 @@ ros2 launch indomitus_rover_sim sim_no_gazebo.launch.py
 ```
 
 > ⚠️ `GZ_PARTITION` must be identical on host and distrobox.
+
+
+# For native Ubuntu 22:
+
+Installation and setup are the same as described above.
+
+The only difference: you don’t need to set `GZ_PARTITION` and `GZ_IP`, and you don’t need to run Gazebo separately
+
+Don't run:
+```bash
+gz sim -r src/indomitus_rover_sim/worlds/rover_world.sdf
+
+ros2 launch indomitus_rover_sim sim_no_gazebo.launch.py
+```
+
+Do run:
+```bash
+ros2 launch indomitus_rover_sim sim_gazebo.launch.py
+```
+
+# Camera on marsrover
+
+To visualize camera streams from the rover, you can use `rqt_image_view`, a GUI tool that subscribes to image topics and displays them in real time
+
+```bash
+sudo apt update
+sudo apt install ros-humble-rqt-image-view
+
+ros2 run rqt_image_view rqt_image_view
+```
+
+# Driving rover with keyboard
+
+To control the rover manually using your keyboard, use the `teleop_twist_keyboard` node. This publishes velocity commands to the robot
+
+```bash
+sudo apt update
+sudo apt install ros-humble-teleop-twist-keyboard
+```
+
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```

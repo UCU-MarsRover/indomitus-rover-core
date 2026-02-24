@@ -23,6 +23,12 @@
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
 
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
     <gui fullscreen="0">
       <!-- 3D scene -->
       <plugin filename="MinimalScene" name="3D View">
@@ -73,8 +79,8 @@
           <play_pause>true</play_pause>
           <step>true</step>
           <start_paused>true</start_paused>
-          <service>/world/world_demo/control</service>
-          <stats_topic>/world/world_demo/stats</stats_topic>
+          <service>/world/indomitus_world_demo/control</service>
+          <stats_topic>/world/indomitus_world_demo/stats</stats_topic>
       </plugin>
 
 
@@ -100,7 +106,7 @@
           <real_time>true</real_time>
           <real_time_factor>true</real_time_factor>
           <iterations>true</iterations>
-          <topic>/world/world_demo/stats</topic>
+          <topic>/world/indomitus_world_demo/stats</topic>
 
       </plugin>
 
