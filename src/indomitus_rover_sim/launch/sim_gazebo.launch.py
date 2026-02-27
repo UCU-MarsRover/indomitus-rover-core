@@ -66,7 +66,7 @@ def generate_launch_description() -> LaunchDescription:
             '-topic', 'robot_description',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '0.5',
+            '-z', '3.5',
         ],
         output='screen',
     )

@@ -130,7 +130,7 @@ source install/setup.bash
 ### 1. Host — set env and launch Gazebo
 ```bash
 export GZ_PARTITION=rover
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/UCU/ERC/indomitus-rover-core/install/indomitus_rover_description/share
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix indomitus_rover_description)/share
 gz sim -r src/indomitus_rover_sim/worlds/rover_world.sdf
 ```
 

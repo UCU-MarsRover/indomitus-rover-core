@@ -24,7 +24,7 @@
       <parent link="${tf_prefix}${base_rocker}_rocker_link"/>
       <child link="${tf_prefix}${name}_wheel_mount_link"/>
       <axis xyz="0 0 1"/>  <!-- вертикальна вісь (Z) для steering -->
-      <limit lower="${-pi/4}" upper="${pi/3}" effort="10" velocity="1"/>
+      <limit lower="${-pi/2}" upper="${pi/2}" effort="10" velocity="1"/>
     </joint>
 
     <link name="${tf_prefix}${name}_wheel_link">

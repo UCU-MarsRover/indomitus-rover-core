@@ -154,7 +154,7 @@
     </include> -->
 
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/jasmeetsingh/models/Mars Gale Crater Patch 2</uri>
+      <uri>https://fuel.gazebosim.org/1.0/jasmeetsingh/models/Mars Gale Crater Patch 1</uri>
     </include>
 
   </world>

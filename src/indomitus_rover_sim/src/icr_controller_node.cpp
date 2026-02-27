@@ -14,41 +14,37 @@ ICRController::ICRController()
 }
 
 void ICRController::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg) {
-    double vx = msg->linear.x;
-    double wz = msg->angular.z;
+    double vel_x = msg->linear.x;   // forward
+    double vel_y = msg->linear.y;   // left
+    double ang_vel = msg->angular.z;
 
     std_msgs::msg::Float64MultiArray steer_cmd, drive_cmd;
     steer_cmd.data.resize(4);
     drive_cmd.data.resize(4);
 
-    if (std::abs(wz) < 1e-6) {
-      // Прямо
-      for (int i = 0; i < 4; i++) {
-        steer_cmd.data[i] = 0.0;
-        drive_cmd.data[i] = vx / WHEEL_RADIUS;
-      }
-    } else if (std::abs(vx) < 1e-6) {
-      // Обертання на місці
-      for (int i = 0; i < 4; i++) {
-        auto [wx, wy] = wheel_positions[i];
-        double angle = std::atan2(wx, -wy);
-        steer_cmd.data[i] = std::clamp(angle, STEER_MIN, STEER_MAX);
-        double dist = std::hypot(wx, wy);
-        drive_cmd.data[i] = wz * dist / WHEEL_RADIUS;
-      }
-    } else {
-      // ICR розрахунок
-      double R = vx / wz;
-      for (int i = 0; i < 4; i++) {
-        auto [wx, wy] = wheel_positions[i];
-        double angle = std::atan2(wx, R - wy);
-        steer_cmd.data[i] = std::clamp(angle, STEER_MIN, STEER_MAX);
-        double dist = std::hypot(wx, R - wy);
-        drive_cmd.data[i] = wz * dist / WHEEL_RADIUS;
-      }
+    for (int i = 0; i < 4; i++) {
+        
+        auto [x_i, y_i] = wheel_positions[i];
+
+        // Velocity of wheel i in body frame
+        double Vx = vel_x - ang_vel * y_i;
+        double Vy = vel_y + ang_vel * x_i;
+
+        double angle = std::atan2(Vy, Vx);
+        double vel   = std::hypot(Vx, Vy) / WHEEL_RADIUS;
+
+        if (angle > M_PI_2) {
+            angle -= M_PI;
+            vel = -vel;
+        }
+        else if (angle < -M_PI_2) {
+            angle += M_PI;
+            vel = -vel;
+        }
+
+        steer_cmd.data[i] = std::clamp(angle, -STEER_MAX, STEER_MAX);
+        drive_cmd.data[i] = vel;
     }
-
-
 
     steering_pub_->publish(steer_cmd);
     drive_pub_->publish(drive_cmd);
@@ -56,7 +52,7 @@ void ICRController::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr ms
 
 
 int main(int argc, char** argv) {
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<ICRController>());
-  rclcpp::shutdown();
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<ICRController>());
+    rclcpp::shutdown();
 }

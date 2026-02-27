@@ -9,14 +9,15 @@ public:
     static constexpr double L = 1.06;
     static constexpr double W = 0.61;
     static constexpr double WHEEL_RADIUS = 0.15;
-    static constexpr double STEER_MIN = -M_PI / 2;
-    static constexpr double STEER_MAX =  M_PI / 2;
+    static constexpr double STEER_MIN = -M_PI;
+    static constexpr double STEER_MAX =  M_PI;
 
+    // Position of each wheel relative to rover center (x forward, y left)
     const std::array<std::pair<double,double>, 4> wheel_positions = {{
-        { L/2,  W/2},  // FL
-        { L/2, -W/2},  // FR
-        {-L/2,  W/2},  // RL
-        {-L/2, -W/2},  // RR
+        {  L/2,  W/2 },   // FL  (front left)
+        {  L/2, -W/2 },   // FR  (front right)
+        { -L/2,  W/2 },   // BL  (back left)
+        { -L/2, -W/2 },   // BR  (back right)
     }};
 
     ICRController();
