@@ -15,6 +15,14 @@ joint_state_publisher або joint_state_publisher_gui — для керуван
 
 #### 1. Підготовка
 
+Залежності:
+```bash
+sudo apt install ros-${ROS_DISTRO}-robot-state-publisher \
+                ros-${ROS_DISTRO}-joint-state-publisher \
+                ros-${ROS_DISTRO}-joint-state-publisher-gui \
+                ros-${ROS_DISTRO}-rviz2
+```
+
 Перед запуском переконайтеся, що workspace зібраний:
 
 ```bash

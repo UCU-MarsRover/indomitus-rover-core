@@ -17,15 +17,13 @@
         </geometry>
         <material name="steel"/>
       </visual>
-      <!-- <collision name="${name}_wheel">
-        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <!-- <origin xyz="-0.55 ${0.02 * side} -0.04" rpy="0 0 0"/> -->
         <geometry>
-          <cylinder radius="0.05" length="0.042"/>
+          <box size="1.1 ${0.04 * side} 0.08"/> <!-- приблизно вдвічі масштаб visual -->
         </geometry>
-        <material name="collision">
-          <color rgba="0.8 0.0 0.0 1.0"/>
-        </material>
-      </collision> -->
+      </collision>
     </link>
 
     <joint name="${tf_prefix}${name}_rocker_joint" type="continuous">
