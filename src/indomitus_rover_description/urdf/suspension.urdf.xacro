@@ -6,7 +6,7 @@
 
     <link name="${tf_prefix}base_link"/>
 
-    <link name="${tf_prefix}suspension_base_link">
+    <link name="${tf_prefix}suspension_base_axii_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.5"/>
@@ -20,10 +20,10 @@
       </visual>
     </link>
 
-    <joint name="${tf_prefix}suspension_base_joint" type="fixed">
+    <joint name="${tf_prefix}suspension_base_axii_joint" type="fixed">
       <origin xyz="${xyz}" rpy="0 0 0"/>
       <parent link="${tf_prefix}base_link"/>
-      <child link="${tf_prefix}suspension_base_link"/>
+      <child link="${tf_prefix}suspension_base_axii_link"/>
     </joint>
 
   </xacro:macro>

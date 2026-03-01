@@ -18,8 +18,8 @@
   <xacro:camera tf_prefix="${tf_prefix}"/>
 
   <xacro:suspension xyz="0 0 0.4" tf_prefix="${tf_prefix}"/>
-  <xacro:rocker name="l"  xyz="0 0.305 0"  side="1"  base_axii="suspension_base_link" tf_prefix="${tf_prefix}"/>
-  <xacro:rocker name="r" xyz="0 -0.305 0" side="-1" base_axii="suspension_base_link" tf_prefix="${tf_prefix}"/>
+  <xacro:rocker name="l"  xyz="0 0.305 0"  side="1"  base_axii="suspension_base_axii_link" tf_prefix="${tf_prefix}"/>
+  <xacro:rocker name="r" xyz="0 -0.305 0" side="-1" base_axii="suspension_base_axii_link" tf_prefix="${tf_prefix}"/>
 
   <xacro:wheel name="fl"  x="0.53" y="0" z="0" side="1" base_rocker="l" tf_prefix="${tf_prefix}"/>
   <xacro:wheel name="fr" x="0.53" y="0" z="0" side="-1" base_rocker="r" tf_prefix="${tf_prefix}"/>
