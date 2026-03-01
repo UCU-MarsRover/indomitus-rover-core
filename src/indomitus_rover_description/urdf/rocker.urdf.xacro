@@ -17,13 +17,6 @@
         </geometry>
         <material name="steel"/>
       </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <!-- <origin xyz="-0.55 ${0.02 * side} -0.04" rpy="0 0 0"/> -->
-        <geometry>
-          <box size="1.1 ${0.04 * side} 0.08"/> <!-- приблизно вдвічі масштаб visual -->
-        </geometry>
-      </collision>
     </link>
 
     <joint name="${tf_prefix}${name}_rocker_joint" type="continuous">
