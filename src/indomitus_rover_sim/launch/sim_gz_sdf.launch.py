@@ -24,7 +24,7 @@ def generate_launch_description():
             'launch', 'gz_sim.launch.py'
         )),
         launch_arguments={
-            'gz_args': f'-r -v 4 {world_file}',
+            'gz_args': f'-v 4 {world_file}',
             'on_exit_shutdown': 'True'
         }.items()
     )
@@ -37,7 +37,7 @@ def generate_launch_description():
             '-name', 'indomitus_rover',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '0.3',
+            '-z', '4.3',
         ],
         output='screen',
     )

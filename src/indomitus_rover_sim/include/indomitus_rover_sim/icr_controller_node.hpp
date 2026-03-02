@@ -2,7 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
-#include <std_msgs/msg/float64_multi_array.hpp>
+#include <std_msgs/msg/float64.hpp>
 
 class ICRController : public rclcpp::Node {
 public:
@@ -26,6 +26,6 @@ private:
     void cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg);
 
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
-    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr steering_pub_;
-    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr drive_pub_;
+    std::vector<rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr> steer_pubs_;
+    std::vector<rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr> drive_pubs_;
 };

@@ -7,20 +7,25 @@ ICRController::ICRController()
         "/cmd_vel", 10,
         std::bind(&ICRController::cmdVelCallback, this, std::placeholders::_1));
 
-    steering_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>(
-        "/steering_controller/commands", 10);
-    drive_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>(
-        "/drive_controller/commands", 10);
+    const std::vector<std::string> steer_topics = {
+        "/steering/fl", "/steering/fr", "/steering/bl", "/steering/br"
+    };
+    const std::vector<std::string> drive_topics = {
+        "/drive/fl_wheel", "/drive/fr_wheel", "/drive/bl_wheel", "/drive/br_wheel"
+    };
+
+    for (int i = 0; i < 4; i++) {
+        steer_pubs_.push_back(
+            create_publisher<std_msgs::msg::Float64>(steer_topics[i], 10));
+        drive_pubs_.push_back(
+            create_publisher<std_msgs::msg::Float64>(drive_topics[i], 10));
+    }
 }
 
 void ICRController::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg) {
     double vel_x = msg->linear.x;   // forward
     double vel_y = msg->linear.y;   // left
     double ang_vel = msg->angular.z;
-
-    std_msgs::msg::Float64MultiArray steer_cmd, drive_cmd;
-    steer_cmd.data.resize(4);
-    drive_cmd.data.resize(4);
 
     for (int i = 0; i < 4; i++) {
         
@@ -42,12 +47,13 @@ void ICRController::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr ms
             vel = -vel;
         }
 
-        steer_cmd.data[i] = std::clamp(angle, -STEER_MAX, STEER_MAX);
-        drive_cmd.data[i] = vel;
-    }
+        std_msgs::msg::Float64 steer_msg, drive_msg;
+        steer_msg.data = std::clamp(angle, -STEER_MAX, STEER_MAX);
+        drive_msg.data = vel;
 
-    steering_pub_->publish(steer_cmd);
-    drive_pub_->publish(drive_cmd);
+        steer_pubs_[i]->publish(steer_msg);
+        drive_pubs_[i]->publish(drive_msg);
+    }
 }
 
 
