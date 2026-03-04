@@ -37,6 +37,9 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 
 WORKDIR ${WS}
 
+RUN echo "if [ -f /opt/ros/\${ROS_DISTRO}/setup.bash ]; then source /opt/ros/\${ROS_DISTRO}/setup.bash; fi" >> /root/.bashrc && \
+    echo "if [ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]; then source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash; fi" >> /root/.bashrc && \
+    echo "if [ -f ${WS}/install/setup.bash ]; then source ${WS}/install/setup.bash; fi" >> /root/.bashrc
 
 COPY docker/entrypoint.bash /entrypoint.bash
 RUN chmod +x /entrypoint.bash

@@ -13,7 +13,7 @@
       <visual>
         <origin xyz="-0.55 ${0.02 * side} -0.04" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/rocker.stl" scale="0.001 ${0.001 * side} 0.001"/>
+          <mesh filename="package://indomitus_rover_description/meshes/suspension/rocker.stl" scale="0.001 ${0.001 * side} 0.001"/>
         </geometry>
         <material name="steel"/>
       </visual>

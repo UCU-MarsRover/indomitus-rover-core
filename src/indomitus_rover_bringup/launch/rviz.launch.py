@@ -17,8 +17,8 @@ args_descriptions = {
 
 
 def urdf(name: str = '') -> str:
-    urdf_xacro = os.path.join(get_package_share_directory('rover_description'),
-                              'urdf', 'rover_s1.urdf.xacro')
+    urdf_xacro = os.path.join(get_package_share_directory('indomitus_rover_description'),
+                              'urdf', 'indomitus_rover_s1.urdf.xacro')
     
     xacro_args = [f'name:={name}']
     
@@ -75,7 +75,7 @@ def launch_nodes(context: LaunchContext,
     # RViz2
     if use_rviz:
         rviz_config_file = os.path.join(
-            get_package_share_directory('rover_bringup'),
+            get_package_share_directory('indomitus_rover_bringup'),
             'rviz', 'robot.rviz'
         )
         # Завжди використовуємо конфігураційний файл, якщо він існує
@@ -85,7 +85,7 @@ def launch_nodes(context: LaunchContext,
             # Якщо файл не знайдено в install директорії, спробуємо в source директорії
             source_rviz_config = os.path.join(
                 os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-                'rover_bringup', 'rviz', 'robot.rviz'
+                'indomitus_rover_bringup', 'rviz', 'robot.rviz'
             )
             if os.path.exists(source_rviz_config):
                 rviz_args = ['-d', source_rviz_config]

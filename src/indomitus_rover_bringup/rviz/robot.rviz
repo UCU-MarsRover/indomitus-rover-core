@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobotModel1
-        - /RobotModel1/Description Topic1
       Splitter Ratio: 0.5
     Tree Height: 460
   - Class: rviz_common/Selection
@@ -233,7 +232,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 3.310059070587158
+      Distance: 2.3585617542266846
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -248,10 +247,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5603979825973511
+      Pitch: 0.4203983545303345
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.818580627441406
+      Yaw: 5.966710567474365
     Saved: ~
 Window Geometry:
   Displays:

@@ -5,7 +5,7 @@
   <let name="js_suffix" value="" unless="$(var joint_state_gui)"/>
   <let name="js_suffix" value="_gui" if="$(var joint_state_gui)"/>
 
-  <include file="$(find-pkg-share rover_description)/launch/model.launch.py"/>
+  <include file="$(find-pkg-share indomitus_rover_description)/launch/robot_state_publisher.launch.py"/>
 
   <node name="joint_state_publisher" exec="joint_state_publisher$(var js_suffix)"
     pkg="joint_state_publisher$(var js_suffix)"  output="screen" args="--ros-args --log-level warn">

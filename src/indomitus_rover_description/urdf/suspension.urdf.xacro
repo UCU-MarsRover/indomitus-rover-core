@@ -15,7 +15,7 @@
       <visual>
         <origin xyz="0 -0.325 0"/>
         <geometry>
-          <mesh filename="package://rover_description/meshes/suspension/central_axii.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://indomitus_rover_description/meshes/suspension/central_axii.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
     </link>
