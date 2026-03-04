@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-rosbag2 \
     ros-${ROS_DISTRO}-ros-gz ros-${ROS_DISTRO}-ros-gz-sim \
     ros-${ROS_DISTRO}-ros-gz-bridge ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+    ros-${ROS_DISTRO}-depthai-ros \
+    usbutils \
     libgl1 libglib2.0-0 \
     pkg-config \
     g++ make cmake \
@@ -39,6 +41,9 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 
 WORKDIR ${WS}
 
+RUN echo "if [ -f /opt/ros/\${ROS_DISTRO}/setup.bash ]; then source /opt/ros/\${ROS_DISTRO}/setup.bash; fi" >> /root/.bashrc && \
+    echo "if [ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]; then source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash; fi" >> /root/.bashrc && \
+    echo "if [ -f ${WS}/install/setup.bash ]; then source ${WS}/install/setup.bash; fi" >> /root/.bashrc
 
 COPY docker/entrypoint.bash /entrypoint.bash
 RUN chmod +x /entrypoint.bash
