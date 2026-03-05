@@ -24,7 +24,7 @@ def generate_launch_description():
             'launch', 'gz_sim.launch.py'
         )),
         launch_arguments={
-            'gz_args': f'-v 4 {world_file}',
+            'gz_args': f'-r -v 4 {world_file}',
             'on_exit_shutdown': 'True'
         }.items()
     )
@@ -37,7 +37,7 @@ def generate_launch_description():
             '-name', 'indomitus_rover',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '4.3',
+            '-z', '4.0',
         ],
         output='screen',
     )
@@ -60,9 +60,19 @@ def generate_launch_description():
         output='screen',
     )
 
+    diff_bar_controller_node = Node(
+        package='indomitus_rover_sim',
+        executable='diff_bar_controller_node',
+        output='screen',
+    )
+
+
     return LaunchDescription([
         gazebo_launch,
         ros_gz_bridge,
         TimerAction(period=2.0, actions=[spawn_model_node]),
-        TimerAction(period=3.0, actions=[icr_controller_node]),
+        TimerAction(period=3.0, actions=[
+            icr_controller_node,
+            diff_bar_controller_node,
+            ]),
     ])

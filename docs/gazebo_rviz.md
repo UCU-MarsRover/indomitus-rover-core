@@ -134,9 +134,14 @@ export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix indomitus_ro
 
 ## Running
 
-Do run:
+To run URDF model:
 ```bash
-ros2 launch indomitus_rover_sim sim_gazebo.launch.py
+ros2 launch indomitus_rover_sim sim_gz_urdf.launch.py
+```
+
+To run SDF model (with diff bar):
+```bash
+ros2 launch indomitus_rover_sim sim_gz_sdf.launch.py
 ```
 
 ## Camera on marsrover

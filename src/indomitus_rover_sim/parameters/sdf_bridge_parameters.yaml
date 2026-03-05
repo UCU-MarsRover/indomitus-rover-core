@@ -24,7 +24,6 @@
 
 
 
-# Drive (швидкість коліс)
 - ros_topic_name: /drive/fl_wheel
   gz_topic_name: /drive/fl_wheel
   ros_type_name: std_msgs/msg/Float64
@@ -49,7 +48,8 @@
   gz_type_name: gz.msgs.Double
   direction: ROS_TO_GZ
 
-# Steering (кут коліс)
+
+
 - ros_topic_name: /steering/fl
   gz_topic_name: /steering/fl
   ros_type_name: std_msgs/msg/Float64
@@ -70,6 +70,16 @@
 
 - ros_topic_name: /steering/br
   gz_topic_name: /steering/br
+  ros_type_name: std_msgs/msg/Float64
+  gz_type_name: gz.msgs.Double
+  direction: ROS_TO_GZ
+
+
+
+
+
+- ros_topic_name: /base_axii/angle
+  gz_topic_name: /base_axii/angle
   ros_type_name: std_msgs/msg/Float64
   gz_type_name: gz.msgs.Double
   direction: ROS_TO_GZ

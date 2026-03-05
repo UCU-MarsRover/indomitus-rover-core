@@ -14,14 +14,37 @@
     </link>
 
     <!-- ===================== SUSPENSION BASE AXII ===================== -->
-    <joint name="suspension_base_axii_joint" type="fixed">
-      <pose relative_to="base_link">0 0 0.4 0 0 0</pose>
-      <parent>base_link</parent>
-      <child>suspension_base_axii_link</child>
-    </joint>
+    <link name="main_body_link">
+      <pose relative_to="base_link">-0.04 0 0.05 0 0 0</pose>
+      <inertial>
+        <mass>40.0</mass>
+          <inertia>
+            <ixx>0.608</ixx>
+            <iyy>1.283</iyy>
+            <izz>1.733</izz>
+            <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+          </inertia>
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.6 0.4 0.2</size></box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.2 0.5 1</ambient>
+          <diffuse>0.2 0.4 0.8 1</diffuse>
+          <specular>0.1 0.1 0.2 1</specular>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.6 0.4 0.15</size></box>
+        </geometry>
+      </collision>
+    </link>
+
 
     <link name="suspension_base_axii_link">
-      <pose relative_to="suspension_base_axii_joint">0 0 0 0 0 0</pose>
+      <pose relative_to="base_link">0 0 0 0 0 0</pose>
       <inertial>
         <mass>0.5</mass>
         <inertia>
@@ -49,6 +72,29 @@
         </geometry>
       </collision>
     </link>
+
+
+    <joint name="suspension_base_axii_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>suspension_base_axii_link</child>
+    </joint>
+
+    <joint name="main_body_joint" type="revolute">
+      <!-- <pose relative_to="suspension_base_axii_joint">0 0.2 0 0 0 0</pose> -->
+      <parent>suspension_base_axii_link</parent>
+      <child>main_body_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.0</lower><upper>1.0</upper>
+          <effort>10000</effort><velocity>5.0</velocity>
+        </limit>
+        <dynamics>
+          <damping>20.0</damping>
+          <friction>1.0</friction>
+        </dynamics>
+      </axis>
+    </joint>
 
     <!-- ===================== LEFT ROCKER ===================== -->
     <joint name="l_rocker_joint" type="revolute">
@@ -149,8 +195,12 @@
         <xyz>0 0 1</xyz>
         <limit>
           <lower>-1.5708</lower><upper>1.5708</upper>
-          <effort>10</effort><velocity>1</velocity>
+          <effort>500</effort><velocity>1</velocity>
         </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.3</friction>
+        </dynamics>
       </axis>
     </joint>
 
@@ -238,8 +288,12 @@
         <xyz>0 0 1</xyz>
         <limit>
           <lower>-1.5708</lower><upper>1.5708</upper>
-          <effort>10</effort><velocity>1</velocity>
+          <effort>500</effort><velocity>1</velocity>
         </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.3</friction>
+        </dynamics>
       </axis>
     </joint>
 
@@ -327,8 +381,12 @@
         <xyz>0 0 1</xyz>
         <limit>
           <lower>-1.5708</lower><upper>1.5708</upper>
-          <effort>10</effort><velocity>1</velocity>
+          <effort>500</effort><velocity>1</velocity>
         </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.3</friction>
+        </dynamics>
       </axis>
     </joint>
 
@@ -416,8 +474,12 @@
         <xyz>0 0 1</xyz>
         <limit>
           <lower>-1.5708</lower><upper>1.5708</upper>
-          <effort>10</effort><velocity>1</velocity>
+          <effort>500</effort><velocity>1</velocity>
         </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.3</friction>
+        </dynamics>
       </axis>
     </joint>
 
@@ -497,8 +559,12 @@
     </link>
 
     <!-- ===================== PLUGINS ===================== -->
-    <plugin filename="libgz-sim-joint-state-publisher-system.so">
+    <!-- <plugin filename="libgz-sim-joint-state-publisher-system.so">
       <class>gz::sim::v8::systems::JointStatePublisher</class>
+    </plugin> -->
+
+    <plugin filename="gz-sim-joint-state-publisher-system"
+        name="gz::sim::systems::JointStatePublisher">
     </plugin>
 
     <plugin filename="gz-sim-joint-controller-system"
@@ -513,6 +579,13 @@
       <joint_name>fr_wheel_joint</joint_name>
       <topic>/drive/fr_wheel</topic>
       <use_force_commands>false</use_force_commands>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>main_body_joint</joint_name>
+      <topic>/base_axii/angle</topic>
+      <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>5</d_gain>
     </plugin>
 
     <plugin filename="gz-sim-joint-controller-system"
@@ -533,28 +606,28 @@
             name="gz::sim::systems::JointPositionController">
       <joint_name>fl_wheel_mount_joint</joint_name>
       <topic>/steering/fl</topic>
-      <p_gain>10</p_gain><i_gain>0</i_gain><d_gain>0.1</d_gain>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
     </plugin>
 
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>fr_wheel_mount_joint</joint_name>
       <topic>/steering/fr</topic>
-      <p_gain>10</p_gain><i_gain>0</i_gain><d_gain>0.1</d_gain>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
     </plugin>
 
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>bl_wheel_mount_joint</joint_name>
       <topic>/steering/bl</topic>
-      <p_gain>10</p_gain><i_gain>0</i_gain><d_gain>0.1</d_gain>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
     </plugin>
 
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>br_wheel_mount_joint</joint_name>
       <topic>/steering/br</topic>
-      <p_gain>10</p_gain><i_gain>0</i_gain><d_gain>0.1</d_gain>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
     </plugin>
 
   </model>

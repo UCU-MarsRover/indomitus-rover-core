@@ -9,7 +9,6 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import TimerAction
 
-
 def generate_launch_description() -> LaunchDescription:
     pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_sim'),
                                  'urdf', 'indomitus_rover_gazebo.urdf.xacro')
@@ -20,24 +19,18 @@ def generate_launch_description() -> LaunchDescription:
     gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('ros_gz_sim'),
                                                                         'launch', 'gz_sim.launch.py'))
 
+    world_file = os.path.join(
+        get_package_share_directory('indomitus_rover_sim'),
+        'worlds',
+        'rover_world.sdf'
+    )
 
-    gazeboLaunch = IncludeLaunchDescription(gazebo_rosPackageLaunch,
-                                            launch_arguments={
-                                                'gz_args': '-r -v -v4 empty.sdf',
-                                                'on_exit_shutdown': 'True'
-                                            }.items())
-
-    spawnModelNodeGazebo = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'indomitus_rover',
-            '-topic', 'robot_description',
-            '-x', '0.0',
-            '-y', '0.0', 
-            '-z', '3.5',
-        ],
-        output='screen',
+    gazeboLaunch = IncludeLaunchDescription(
+        gazebo_rosPackageLaunch,
+        launch_arguments={
+            'gz_args': f'-r -v -v4 {world_file}',
+            'on_exit_shutdown': 'True'
+        }.items()
     )
 
     nodeRobotStatePublisher = Node(
@@ -65,9 +58,20 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
+    spawnModelNodeGazebo = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'indomitus_rover',
+            '-topic', 'robot_description',
+            '-x', '0.0',
+            '-y', '0.0',
+            '-z', '3.5',
+        ],
+        output='screen',
+    )
 
-    # НОВЕ: spawner для joint_state_broadcaster
-    # публікує стани всіх joints в /joint_states
+    # publics all joints states in /joint_states
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -75,8 +79,7 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
-    # НОВЕ: spawner для steering контролера
-    # керує кутом повороту wheel_mount joints (position)
+    # angle of wheel_mount joints (position)
     steering_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -84,8 +87,7 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
-    # НОВЕ: spawner для drive контролера
-    # керує швидкістю обертання wheel joints (velocity)
+    # speed of wheel joints (velocity)
     drive_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -93,15 +95,21 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
+
+    icr_controller_node = Node(
+        package='indomitus_rover_sim',
+        executable='icr_controller_node',
+        output='screen',
+    )
+
+
     launchDescriptionObject = LaunchDescription()
 
-    # launchDescriptionObject.add_action(spawnModelNodeGazebo)
+    launchDescriptionObject.add_action(gazeboLaunch) 
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
     launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
 
-    # НОВЕ: запускаємо контролери через 3 секунди
-    # після того як Gazebo встигає ініціалізувати controller_manager
     launchDescriptionObject.add_action(
         TimerAction(period=3.0, actions=[
             joint_state_broadcaster_spawner,
@@ -110,4 +118,7 @@ def generate_launch_description() -> LaunchDescription:
         ])
     )
 
+    launchDescriptionObject.add_action(TimerAction(period=4.0, actions=[icr_controller_node]))
+
     return launchDescriptionObject
+
