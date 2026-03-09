@@ -101,7 +101,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-
   | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
 
 sudo apt-get update
-sudo apt-get install -y gz-harmonic ros-humble-ros-gzharmonic
+sudo apt-get install -y gz-harmonic ros-${ROS_DISTRO}-ros-gzharmonic
 ```
 
 

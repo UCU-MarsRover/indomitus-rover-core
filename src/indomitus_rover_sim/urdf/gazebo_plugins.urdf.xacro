@@ -72,7 +72,6 @@
     </plugin>
   </gazebo>
 
-  <!-- JointStatePublisher — щоб Gazebo публікувала стани joints -->
   <gazebo>
     <plugin filename="gz-sim-joint-state-publisher-system"
             name="gz::sim::systems::JointStatePublisher">

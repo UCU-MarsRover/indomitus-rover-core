@@ -121,17 +121,6 @@ def generate_launch_description() -> LaunchDescription:
         'bridge_parameters_urdf.yaml'
     )
 
-    # start_gazebo_ros_bridge_cmd = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     arguments=[
-    #         '--ros-args',
-    #         '-p',
-    #         f'config_file:={bridge_params}',
-    #     ],
-    #     output='screen',
-    # )
-
     start_gazebo_ros_bridge_cmd = OpaqueFunction(
         function=generate_bridge_config
     )
@@ -149,7 +138,6 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
-    # publics all joints states in /joint_states
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -157,7 +145,6 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
-    # angle of wheel_mount joints (position)
     steering_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -165,7 +152,6 @@ def generate_launch_description() -> LaunchDescription:
         output='screen',
     )
 
-    # speed of wheel joints (velocity)
     drive_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
