@@ -55,7 +55,7 @@ def generate_launch_description() -> LaunchDescription:
     bridge_params = os.path.join(
         rover_sim_share,
         'parameters',
-        'bridge_parameters.yaml'
+        'bridge_parameters_urdf.yaml'
     )
 
     start_gazebo_ros_bridge_cmd = Node(
@@ -112,24 +112,6 @@ def generate_launch_description() -> LaunchDescription:
         executable='icr_controller_node',
         output='screen',
     )
-
-
-    # launchDescriptionObject = LaunchDescription()
-
-    # launchDescriptionObject.add_action(gazeboLaunch) 
-    # launchDescriptionObject.add_action(nodeRobotStatePublisher)
-    # launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
-    # launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
-
-    # launchDescriptionObject.add_action(
-    #     TimerAction(period=3.0, actions=[
-    #         joint_state_broadcaster_spawner,
-    #         steering_controller_spawner,
-    #         drive_controller_spawner,
-    #     ])
-    # )
-
-    # launchDescriptionObject.add_action(TimerAction(period=4.0, actions=[icr_controller_node]))
 
     r_rocker_spawner = Node(
         package='controller_manager',

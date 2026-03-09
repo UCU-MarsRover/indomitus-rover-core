@@ -11,7 +11,6 @@ public:
       "/joint_states", 10,
       std::bind(&RockerSoftMimic::jointStateCallback, this, std::placeholders::_1));
 
-    // Publisher до Gazebo через bridge — команда на r_rocker_joint
     r_rocker_cmd_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/r_rocker_position_controller/commands", 10);
   }
@@ -32,7 +31,6 @@ private:
 
     if (!found) return;
 
-    // r_rocker = -l_rocker (диференціал)
     auto cmd_msg = std_msgs::msg::Float64MultiArray();
     cmd_msg.data.push_back(-l_rocker_pos);
     r_rocker_cmd_pub_->publish(cmd_msg);

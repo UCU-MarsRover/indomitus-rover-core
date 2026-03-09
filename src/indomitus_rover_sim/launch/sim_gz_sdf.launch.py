@@ -58,7 +58,7 @@ def generate_launch_description():
     bridge_params = os.path.join(
         rover_sim_share,
         'parameters',
-        'sdf_bridge_parameters.yaml'
+        'bridge_parameters_sdf.yaml'
     )
     ros_gz_bridge = Node(
         package='ros_gz_bridge',
