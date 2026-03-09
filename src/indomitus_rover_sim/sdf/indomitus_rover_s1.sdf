@@ -558,6 +558,77 @@
       </collision>
     </link>
 
+    <!-- ===================== PLUGINS ===================== -->
+    <!-- <plugin filename="libgz-sim-joint-state-publisher-system.so">
+      <class>gz::sim::v8::systems::JointStatePublisher</class>
+    </plugin> -->
+
+    <plugin filename="gz-sim-joint-state-publisher-system"
+        name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+      <joint_name>fl_wheel_joint</joint_name>
+      <topic>/drive/fl_wheel</topic>
+      <use_force_commands>false</use_force_commands>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+      <joint_name>fr_wheel_joint</joint_name>
+      <topic>/drive/fr_wheel</topic>
+      <use_force_commands>false</use_force_commands>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>main_body_joint</joint_name>
+      <topic>/base_axii/angle</topic>
+      <p_gain>100</p_gain><i_gain>0</i_gain><d_gain>5</d_gain>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+      <joint_name>bl_wheel_joint</joint_name>
+      <topic>/drive/bl_wheel</topic>
+      <use_force_commands>false</use_force_commands>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+      <joint_name>br_wheel_joint</joint_name>
+      <topic>/drive/br_wheel</topic>
+      <use_force_commands>false</use_force_commands>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>fl_wheel_mount_joint</joint_name>
+      <topic>/steering/fl</topic>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>fr_wheel_mount_joint</joint_name>
+      <topic>/steering/fr</topic>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>bl_wheel_mount_joint</joint_name>
+      <topic>/steering/bl</topic>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>br_wheel_mount_joint</joint_name>
+      <topic>/steering/br</topic>
+      <p_gain>100</p_gain><i_gain>0.1</i_gain><d_gain>2.0</d_gain>
+    </plugin>
 
   </model>
 </sdf>

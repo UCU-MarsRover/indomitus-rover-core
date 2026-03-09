@@ -50,6 +50,18 @@
       <state_interface name="velocity"/>
     </joint>
 
+
+    <joint name="l_rocker_joint">
+      <!-- <command_interface name="position"/> -->
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="r_rocker_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
   </ros2_control>
 
   <!-- gz_ros2_control plugin -->

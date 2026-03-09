@@ -31,7 +31,7 @@ endif()
 
 
 install(
-    DIRECTORY launch worlds parameters urdf
+    DIRECTORY launch worlds parameters urdf sdf
     DESTINATION share/${PROJECT_NAME}
 )
 
@@ -39,18 +39,8 @@ add_executable(icr_controller_node src/icr_controller_node.cpp)
 ament_target_dependencies(icr_controller_node rclcpp geometry_msgs std_msgs)
 install(TARGETS icr_controller_node DESTINATION lib/${PROJECT_NAME})
 
-add_executable(diff_bar_controller_node
-    src/diff_bar_controller_node.cpp
-)
-
-ament_target_dependencies(diff_bar_controller_node
-    rclcpp
-    sensor_msgs
-    std_msgs
-)
-
-install(TARGETS diff_bar_controller_node
-    DESTINATION lib/${PROJECT_NAME}
-)
+add_executable(rocker_soft_mimic src/rocker_soft_mimic.cpp)
+ament_target_dependencies(rocker_soft_mimic rclcpp sensor_msgs std_msgs)
+install(TARGETS rocker_soft_mimic DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

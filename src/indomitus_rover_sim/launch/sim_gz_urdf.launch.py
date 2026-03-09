@@ -5,12 +5,23 @@ import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.actions import TimerAction
 
 def generate_launch_description() -> LaunchDescription:
-    pathModelFile = os.path.join(get_package_share_directory('indomitus_rover_sim'),
+    rover_description_share = get_package_share_directory('indomitus_rover_description')
+    rover_sim_share = get_package_share_directory('indomitus_rover_sim')
+
+    gz_resource_path = SetEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=[
+            os.environ.get('GZ_SIM_RESOURCE_PATH', ''),
+            ':',
+            os.path.dirname(rover_description_share),
+        ]
+    )
+
+    pathModelFile = os.path.join(rover_sim_share,
                                  'urdf', 'indomitus_rover_gazebo.urdf.xacro')
 
     robotDescription = xacro.process_file(pathModelFile).toxml()
@@ -20,7 +31,7 @@ def generate_launch_description() -> LaunchDescription:
                                                                         'launch', 'gz_sim.launch.py'))
 
     world_file = os.path.join(
-        get_package_share_directory('indomitus_rover_sim'),
+        rover_sim_share,
         'worlds',
         'rover_world.sdf'
     )
@@ -42,7 +53,7 @@ def generate_launch_description() -> LaunchDescription:
     )
 
     bridge_params = os.path.join(
-        get_package_share_directory('indomitus_rover_sim'),
+        rover_sim_share,
         'parameters',
         'bridge_parameters.yaml'
     )
@@ -103,22 +114,47 @@ def generate_launch_description() -> LaunchDescription:
     )
 
 
-    launchDescriptionObject = LaunchDescription()
+    # launchDescriptionObject = LaunchDescription()
 
-    launchDescriptionObject.add_action(gazeboLaunch) 
-    launchDescriptionObject.add_action(nodeRobotStatePublisher)
-    launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
-    launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
+    # launchDescriptionObject.add_action(gazeboLaunch) 
+    # launchDescriptionObject.add_action(nodeRobotStatePublisher)
+    # launchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
+    # launchDescriptionObject.add_action(TimerAction(period=1.0, actions=[spawnModelNodeGazebo]))
 
-    launchDescriptionObject.add_action(
-        TimerAction(period=3.0, actions=[
-            joint_state_broadcaster_spawner,
-            steering_controller_spawner,
-            drive_controller_spawner,
-        ])
+    # launchDescriptionObject.add_action(
+    #     TimerAction(period=3.0, actions=[
+    #         joint_state_broadcaster_spawner,
+    #         steering_controller_spawner,
+    #         drive_controller_spawner,
+    #     ])
+    # )
+
+    # launchDescriptionObject.add_action(TimerAction(period=4.0, actions=[icr_controller_node]))
+
+    r_rocker_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['r_rocker_position_controller'],
+        output='screen',
     )
 
-    launchDescriptionObject.add_action(TimerAction(period=4.0, actions=[icr_controller_node]))
+    rocker_soft_mimic_node = Node(
+        package='indomitus_rover_sim',
+        executable='rocker_soft_mimic',
+        output='screen',
+    )
 
-    return launchDescriptionObject
+    return LaunchDescription([
+        gz_resource_path,
+        gazeboLaunch,
+        nodeRobotStatePublisher,
+        start_gazebo_ros_bridge_cmd,
+        spawnModelNodeGazebo,
+        joint_state_broadcaster_spawner,
+        steering_controller_spawner,
+        drive_controller_spawner,
+        icr_controller_node,
+        r_rocker_spawner,
+        rocker_soft_mimic_node,
+    ])
 

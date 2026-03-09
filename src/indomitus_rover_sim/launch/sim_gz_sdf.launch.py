@@ -1,19 +1,32 @@
 import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription, TimerAction
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
+    rover_description_share = get_package_share_directory('indomitus_rover_description')
+    
+    gz_resource_path = SetEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=[
+            os.environ.get('GZ_SIM_RESOURCE_PATH', ''),
+            ':',
+            os.path.dirname(rover_description_share),
+        ]
+    )
+
+    rover_sim_share = get_package_share_directory('indomitus_rover_sim')
+
     sdf_model_file = os.path.join(
-        get_package_share_directory('indomitus_rover_description'),
+        rover_sim_share,
         'sdf',
         'indomitus_rover_s1.sdf'
     )
 
     world_file = os.path.join(
-        get_package_share_directory('indomitus_rover_sim'),
+        rover_sim_share,
         'worlds',
         'rover_world.sdf'
     )
@@ -43,7 +56,7 @@ def generate_launch_description():
     )
 
     bridge_params = os.path.join(
-        get_package_share_directory('indomitus_rover_sim'),
+        rover_sim_share,
         'parameters',
         'sdf_bridge_parameters.yaml'
     )
@@ -60,19 +73,18 @@ def generate_launch_description():
         output='screen',
     )
 
-    diff_bar_controller_node = Node(
+    rocker_soft_mimic = Node(
         package='indomitus_rover_sim',
-        executable='diff_bar_controller_node',
+        executable='rocker_soft_mimic',
         output='screen',
     )
 
 
     return LaunchDescription([
+        gz_resource_path,
         gazebo_launch,
         ros_gz_bridge,
-        TimerAction(period=2.0, actions=[spawn_model_node]),
-        TimerAction(period=3.0, actions=[
-            icr_controller_node,
-            diff_bar_controller_node,
-            ]),
+        spawn_model_node,
+        icr_controller_node,
+        rocker_soft_mimic,
     ])
