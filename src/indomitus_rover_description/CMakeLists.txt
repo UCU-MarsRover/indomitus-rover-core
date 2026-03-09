@@ -38,7 +38,7 @@ endif()
 
 
 
-install(DIRECTORY sdf urdf meshes
+install(DIRECTORY urdf meshes
     DESTINATION share/${PROJECT_NAME}
 )
 

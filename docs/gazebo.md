@@ -18,10 +18,10 @@ joint_state_publisher або joint_state_publisher_gui — для керуван
 Залежності:
 ```bash
 sudo apt install -y \
-  ros-${ROS_DISTRO}-robot-state-publisher \
-  ros-${ROS_DISTRO}-joint-state-publisher \
-  ros-${ROS_DISTRO}-joint-state-publisher-gui \
-  ros-${ROS_DISTRO}-rviz2
+    ros-${ROS_DISTRO}-robot-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
+    ros-${ROS_DISTRO}-rviz2
 ```
 
 Перед запуском переконайтеся, що workspace зібраний:
@@ -119,11 +119,6 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-### ⚠️!!IMPORTANT!!⚠️
-```
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix indomitus_rover_description)/share
-```
-
 ## Running
 
 To run URDF model:
@@ -131,10 +126,17 @@ To run URDF model:
 ros2 launch indomitus_rover_sim sim_gz_urdf.launch.py
 ```
 
-To run SDF model (with diff bar):
+#### Additional Parameters to Launch File
 ```bash
-ros2 launch indomitus_rover_sim sim_gz_sdf.launch.py
+ros2 launch indomitus_rover_sim sim_gz_urdf.launch.py \
+    world_name:=indomitus_world_demo \
+    model_name:=indomitus_rover
 ```
+
+| Parameter | Description | Default |
+|---|---|---|
+| `world_name` | Name of a world located in `indomitus_rover_sim/world/` | `indomitus_world_demo` |
+| `model_name` | Name of a model | `indomitus_rover` |
 
 ## Camera on marsrover
 
