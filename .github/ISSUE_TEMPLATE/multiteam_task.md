@@ -1,3 +1,11 @@
+---
+name: Multiteam task
+about: Task that requires responses from multiple teams
+title: "[MULTITEAM] Short title"
+labels: "status/not-started"
+assignees: ""
+---
+
 ## Завдання
 
 <!-- Що треба зробити. 1-2 речення. -->
