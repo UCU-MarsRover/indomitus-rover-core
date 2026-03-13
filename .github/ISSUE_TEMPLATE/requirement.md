@@ -18,6 +18,7 @@ assignees: ""
 
 **Type:** `General` / `Design` / `Functional` / `Operational` / `Environmental`
 **Verification method:** `R` Review · `I` Inspection · `T` Test · `A` Analysis
+**Description:** _paste if any, otherwise remove this line_
 **Notes from organizer:** _paste if any, otherwise remove this line_
 
 ---
@@ -48,8 +49,6 @@ assignees: ""
 
 **Method:** `R` / `I` / `T` / `A`
 **Date:** —
-**Verified by:** —
 **Result:** `pass` / `fail` / `partial`
-**Evidence:** _(link to photo, video, or test report)_
 
 ---
