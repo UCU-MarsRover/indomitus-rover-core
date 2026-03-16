@@ -80,9 +80,6 @@
     <parent link="suspension_base_axii_link"/>
     <child link="main_body_link"/>
     <origin xyz="-0.04 0 0.05" rpy="0 0 0"/>
-    <!-- <axis xyz="0 1 0"/> -->
-    <!-- <limit lower="-1.0" upper="1.0" effort="10000" velocity="5.0"/> -->
-    <!-- <dynamics damping="20.0" friction="1.0"/> -->
   </joint>
 
 
@@ -397,36 +394,3 @@
   </joint>
 
 </robot>
-
-
-
-<!-- <?xml version="1.0"?>
-<robot name="indomitus_s1" xmlns:xacro="https://www.ros.org/wiki/xacro">
-
-  <xacro:arg name="name" default=""/>
-  <xacro:property name="_name" value="$(arg name)"/>
-  <xacro:if value="${_name != ''}">
-    <xacro:property name="tf_prefix" value="${_name}/"/>
-  </xacro:if>
-  <xacro:if value="${_name == ''}">
-    <xacro:property name="tf_prefix" value=""/>
-  </xacro:if>
-
-  <xacro:include filename="$(find indomitus_rover_description)/urdf/suspension.urdf.xacro"/>
-  <xacro:include filename="$(find indomitus_rover_description)/urdf/rocker.urdf.xacro"/>
-  <xacro:include filename="$(find indomitus_rover_description)/urdf/wheel.urdf.xacro"/>
-
-  <xacro:include filename="$(find indomitus_rover_description)/urdf/camera.urdf.xacro"/>
-  <xacro:camera tf_prefix="${tf_prefix}"/>
-
-  <xacro:suspension xyz="0 0 0.4" tf_prefix="${tf_prefix}"/>
-  <xacro:rocker name="l"  xyz="0 0.305 0"  side="1"  base_axii="suspension_base_axii_link" tf_prefix="${tf_prefix}"/>
-  <xacro:rocker name="r" xyz="0 -0.305 0" side="-1" base_axii="suspension_base_axii_link" tf_prefix="${tf_prefix}"/>
-
-  <xacro:wheel name="fl"  x="0.53" y="0" z="0" side="1" base_rocker="l" tf_prefix="${tf_prefix}"/>
-  <xacro:wheel name="fr" x="0.53" y="0" z="0" side="-1" base_rocker="r" tf_prefix="${tf_prefix}"/>
-
-  <xacro:wheel name="bl"  x="-0.53" y="0" z="0" side="1"  base_rocker="l" tf_prefix="${tf_prefix}"/>
-  <xacro:wheel name="br" x="-0.53" y="0" z="0" side="-1" base_rocker="r" tf_prefix="${tf_prefix}"/>
-
-</robot> -->

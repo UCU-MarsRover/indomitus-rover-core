@@ -23,11 +23,15 @@
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
 
-    <plugin
-      filename="gz-sim-sensors-system"
-      name="ignition::gazebo::systems::Sensors">
+    <plugin filename="gz-sim-sensors-system"
+          name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
+
+    <gazebo>
+      <plugin filename="gz-sim-imu-system"
+              name="gz::sim::systems::Imu"/>
+    </gazebo>
 
     <gui fullscreen="0">
       <!-- 3D scene -->
@@ -78,7 +82,7 @@
 
           <play_pause>true</play_pause>
           <step>true</step>
-          <start_paused>true</start_paused>
+          <start_paused>false</start_paused>
           <service>/world/indomitus_world_demo/control</service>
           <stats_topic>/world/indomitus_world_demo/stats</stats_topic>
       </plugin>

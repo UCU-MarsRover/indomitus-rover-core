@@ -148,6 +148,7 @@ sudo apt install ros-${ROS_DISTRO}-rqt-image-view
 
 ros2 run rqt_image_view rqt_image_view
 ```
+After launching program you should select topic of camera you are interested in. `/camera/front_rgb/image_raw` for instance
 
 ## Driving rover with keyboard
 
