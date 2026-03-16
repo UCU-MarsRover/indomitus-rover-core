@@ -8,7 +8,7 @@
     including Gazebo world, URDF, controllers 
     and ROS-Gazebo bridge configuration.
   </description>
-  <maintainer email="fito.pn@ucu.edu.ua">yurifi</maintainer>
+  <maintainer email="fito.pn@ucu.edu.ua">yurFitio</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
