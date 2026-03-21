@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<robot name="rover_s1" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+
+  <xacro:macro name="suspension" params="xyz tf_prefix=''">
+
+    <link name="${tf_prefix}base_link"/>
+
+    <link name="${tf_prefix}suspension_base_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="1.0"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 -0.325 0"/>
+        <geometry>
+          <mesh filename="package://indomitus_rover_description/meshes/suspension/central_axii.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="${tf_prefix}suspension_base_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="${tf_prefix}base_link"/>
+      <child link="${tf_prefix}suspension_base_link"/>
+    </joint>
+
+  </xacro:macro>
+
+
+    <material name="armor_plastic">
+      <color rgba="0.2277128 0.2277128 0.2277128 0.8"/>
+    </material>
+
+    <material name="chassis">
+      <color rgba="0.0981132 0.0981132 0.0981132 1.0"/>
+    </material>
+
+    <material name="cover_plastic">
+      <color rgba="0.2548322 0.2548322 0.2548322 0.30000000000000004"/>
+    </material>
+
+    <material name="dark_plastic">
+      <color rgba="0.0281746 0.0281746 0.0281746 1.0"/>
+    </material>
+
+    <material name="metal">
+      <color rgba="0.0281746 0.028 0.0281746 1.0"/>
+    </material>
+
+    <material name="hit_detector">
+      <color rgba="0.1697846 0.1697846 0.1697846 1.0"/>
+    </material>
+
+    <material name="led_light">
+      <color rgba="0 0.7773585 0.7773583 1.0"/>
+    </material>
+
+    <material name="wheel_plastic">
+      <color rgba="0.2739087 0.2739087 0.2739087 1.0"/>
+    </material>
+
+    <material name="EP_up.001">
+      <color rgba="0.0284811 0.0284811 0.0284811 1.0"/>
+    </material>
+
+    <material name="steel">
+      <color rgba="0.675 0.69453125 0.69453125 1.0"/>
+    </material>
+
+</robot>
