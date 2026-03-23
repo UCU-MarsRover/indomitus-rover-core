@@ -1,0 +1,12 @@
+point_cloud_filter:
+  ros__parameters:
+    # Frame ID of the pointcloud
+    frame_id: "camera_depth_optical_frame"
+    
+    # Z-axis filtering bounds (meters)
+    min_z: 0.10
+    max_z: 1.50
+    
+    # Topic names
+    input_topic: "/camera/points"
+    output_topic: "/perception/obstacle_points"
