@@ -7,8 +7,8 @@ services:
         ROS_DISTRO: humble
     image: indomitus-rover:humble
     container_name: indomitus_rover_dev
-    networks:
-      - ros_network
+    # networks:
+    #   - ros_network
     stdin_open: true      # -i
     tty: true             # -t
     environment:
@@ -20,6 +20,12 @@ services:
       - ./:/work:rw
       - ./src:/opt/ws/src:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+    network_mode: host
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"  # Maps host port to container port
+    group_add:
+      - dialout                      # Grants permission to use serial ports
 
 networks:
   ros_network:
