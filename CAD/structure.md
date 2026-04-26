@@ -7,6 +7,9 @@
     - **[Folder] Suspension System**
         - MR_SUS_00 (Suspension System Assembly)
 
+    - **[Folder] Container**
+        - MR_CNT_00 (Container System Assembly)
+
     - **[Folder] Robotic Arm** 
         - MR_ARM_00 (Robotic Arm Assembly)
 

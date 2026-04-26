@@ -1,6 +1,7 @@
 # Mars Rover CAD Rules & Glossary
 
 ## 1. Core Rules
+- **Minimal Nesting:** Minimize the number of folders to maintain a flat, manageable hierarchy.
 - **No Duplicates:** Always use `[Link]` ("Insert into Current Design") for existing parts. Never copy-paste files.
 - **One Truth:** `MR_00` is the main assembly. Everything else is a sub-assembly.
 - **Sub-assemblies naming:** All sub-assembly files MUST end with `_00` (e.g., `MR_ARM_SHR_00`).
