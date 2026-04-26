@@ -1,19 +1,19 @@
 - **[Project Root]**
     - MR_00 (Mars Rover Main Assembly)
 
-    - **[Folder] Rover Frame**
+    - **[Folder] rover-frame**
         - MR_FRM_00 (Rover Frame Assembly)
 
-    - **[Folder] Suspension System**
+    - **[Folder] suspension-system**
         - MR_SUS_00 (Suspension System Assembly)
 
-    - **[Folder] Container**
+    - **[Folder] container**
         - MR_CNT_00 (Container System Assembly)
 
-    - **[Folder] Robotic Arm** 
+    - **[Folder] robotic-arm** 
         - MR_ARM_00 (Robotic Arm Assembly)
 
-        - **[Folder] Arm Structure** 
+        - **[Folder] arm-structure** 
             - MR_ARM_ATT_00 (Arm-to-Rover Attachment)
                 - MR_ARM_ATT_01 (Drop-in Housing)
                 - [Link] MR_COT_BRG_01 (Attachment Bearing)
@@ -40,7 +40,7 @@
                 - [Link] MR_COT_MTR_03 (Low-Torque Motor x3)
                 - [Link] MR_COT_MTR_04 (End-effector Motor)
 
-        - **[Folder] End-Effectors**
+        - **[Folder] end-effectors**
             - MR_ARM_SHR_00 (Shared End-Effector Components Assembly)
                 - MR_ARM_SHR_01 (Housing)
                 - MR_ARM_SHR_02 (Worm Shaft)
