@@ -29,6 +29,14 @@
 - **SMP** = Sampler (Clamshell Scoop / Drill)
 - **PMP** = Pump (Liquid Handling)
 
+### Frame Sub-systems
+- **FME** = Frame Core (Actuall Frame From Aluminium Profiles)
+- **BBX** = Brain Box (Box With Jetson)
+- **PBX** = Power Box (Box With Voltage Converters)
+- **EBX** = Electronics Box (Box With Other Frame Electronics)
+- **TOP** = Top Cover (Top Plate Of Frame With External Electronics)
+- **TFT** = Time Of Flight Tower (Tower With TOF Sensors)
+
 ### COTs Categories (Hardware)
 - **MTR** = Motor / Actuator
 - **BRG** = Bearing
