@@ -34,19 +34,20 @@
 
     - **[Folder] container system**
         - MR_CNT_00 (Container System Assembly)
-              - MR_CNT_MMC_01 (Middle main container)
-              - MR_CNT_LMC_02 (Left main container)
-              - MR_CNT_RMC_03 (Right main container)
-              - MR_CNT_ISC_04 (Intarnal Side Container X2(160x160x100))
-              - MR_CNT_IMC_05 (Intarnel Middle Container (160x80x100))
-              - MR_CNT_SNS_06 (Load cell sensor(our own representation))
-              - MR_CNT_LUL_07 (Left upper lidpart)
-              - MR_CNT_MUL_08 (Middle upper lid part)
-              - MR_CNT_RUL_09(Right upper lid part)
-              - MR_CNT_LDL_10 (Left Down lid part)
-              - MR_CNT_MDL_11 (Middle Down lid part)
-              - MR_CNT_RDL_12 (Right Down lid part)
-              - [Link] MR_CNT_MTR_13 (Servo motor MG996R x4)
+          - MR_CNT_MMC_01 (Middle main container)
+          - MR_CNT_LMC_02 (Left main container)
+          - MR_CNT_RMC_03 (Right main container)
+          - MR_CNT_ISC_04 (Internal Side Container X2(160x160x100))
+          - MR_CNT_IMC_05 (Internal Middle Container (160x80x100))
+          - MR_CNT_SNS_06 (Load cell sensor(our own representation))
+          - MR_CNT_LUL_07 (Left upper lidpart)
+          - MR_CNT_MUL_08 (Middle upper lid part)
+          - MR_CNT_RUL_09(Right upper lid part)
+          - MR_CNT_LDL_10 (Left Down lid part)
+          - MR_CNT_MDL_11 (Middle Down lid part)
+          - MR_CNT_RDL_12 (Right Down lid part)
+          - [Link] MR_CNT_MTR_13 (Servo motor MG996R x4)
+          - [Link] MR_CNT_CNT_14 
           
     - **[Folder] robotic-arm** 
         - MR_ARM_00 (Robotic Arm Assembly)
